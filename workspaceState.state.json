@@ -1,0 +1,59 @@
+{
+  "workspaceFoldersFilePaths": [
+    "d:\\zz1\\The player graduates\\graduation\\grad/"
+  ],
+  "symbols": [],
+  "activeFileDiagnostics": [
+    {
+      "start": {
+        "line": 1,
+        "character": 7
+      },
+      "end": {
+        "line": 1,
+        "character": 54
+      },
+      "message": "Unused import: 'package:grad/widgets/login/Splash_screen.dart'.\nTry removing the import directive.",
+      "severity": 1
+    }
+  ],
+  "activeTextEditor": {
+    "selections": [
+      {
+        "anchor": {
+          "line": 18,
+          "character": 3
+        },
+        "active": {
+          "line": 18,
+          "character": 3
+        },
+        "isReversed": true
+      }
+    ],
+    "documentFilePath": "d:\\zz1\\The player graduates\\graduation\\grad\\lib\\main.dart",
+    "visibleRanges": [
+      {
+        "start": {
+          "line": 0,
+          "character": 0
+        },
+        "end": {
+          "line": 21,
+          "character": 0
+        }
+      }
+    ],
+    "languageId": "dart"
+  },
+  "debugConsoleOutput": "",
+  "terminalBuffer": "PS D:\\zz1\\The player graduates\\graduation\\grad> ",
+  "terminalSelection": "",
+  "terminalShellType": "pwsh",
+  "repoContexts": [],
+  "notebookDocumentFilePaths": [],
+  "textDocumentFilePaths": [
+    "lib/main.dart",
+    "lib/widgets/login/build_login.dart"
+  ]
+}
