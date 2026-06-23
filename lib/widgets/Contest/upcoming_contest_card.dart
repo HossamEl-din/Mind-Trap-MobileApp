@@ -148,9 +148,10 @@ class UpcomingContestCard extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          'Register', 
+                          'Join In', 
                           style: AppTextStyles.buttonText.copyWith(
                             color: Colors.white, 
+                          fontSize: 17
                           ),
                         ),
                       ),
@@ -158,37 +159,7 @@ class UpcomingContestCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: onRemind,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      height: 44,
-                      decoration: BoxDecoration(
-                        color: isReminded
-                            ? AppColors.timerBg
-                            : AppColors.timerBg,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: isReminded
-                              ? AppColors.accentCyan
-                              : AppColors.textMuted,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          isReminded ? 'Reminded 🔔' : 'Remind Me',
-                          style: AppTextStyles.buttonText.copyWith(
-                            color: isReminded
-                                ? AppColors.accentCyan
-                                : AppColors.textSecondary,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+               
               ],
             ),
           ],

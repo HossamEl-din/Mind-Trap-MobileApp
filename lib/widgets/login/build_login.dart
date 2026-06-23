@@ -91,23 +91,32 @@ class BuildLoginForm extends StatelessWidget {
               const SizedBox(height: 20),
 
               
-              ElevatedButton(
-                onPressed: () {
-                 
-                },
+             ElevatedButton(
+                onPressed: state is AuthLoading
+                    ? null
+                    : () {
+                        
+                        context.read<AuthCubit>().loginWithGoogle();
+                      },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 30, 41, 59),
                   minimumSize: const Size(double.infinity, 50),
                   side: const BorderSide(color: Colors.white10),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.g_mobiledata, color: Colors.white, size: 30),
-                    Text(" CONTINUE WITH GOOGLE", style: TextStyle(color: Colors.white)),
-                  ],
-                ),
+                child: state is AuthLoading
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      )
+                    : const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.g_mobiledata, color: Colors.white, size: 30),
+                          Text(" CONTINUE WITH GOOGLE", style: TextStyle(color: Colors.white)),
+                        ],
+                      ),
               ),
               
               Row(

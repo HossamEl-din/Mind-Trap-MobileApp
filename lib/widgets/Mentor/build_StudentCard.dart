@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-Widget buildStudentCard(String name, String email, String status) {
+Widget buildStudentCard(String name, String email) {
     return Container(
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(15),
@@ -9,7 +9,6 @@ Widget buildStudentCard(String name, String email, String status) {
         leading: CircleAvatar(backgroundColor: const Color(0xFF818CF8), child: Text(name[0], style: const TextStyle(color: Colors.white))),
         title: Text(name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         subtitle: Text(email, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-        trailing: const Icon(Icons.chat_bubble_outline, color: Colors.cyanAccent),
       ),
     );
   }

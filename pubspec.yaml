@@ -33,6 +33,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  google_sign_in: ^6.2.0
   jwt_decoder: ^2.0.1
   shared_preferences: ^2.5.5
   url_launcher: ^6.3.2
@@ -88,7 +89,7 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#0F172A"
-  image: "assets/images/logo.png" 
+  image: "assets/images/logo3.png" 
   android_12:
     color: "#0F172A"
-    image: "assets/images/logo.png"
+    image: "assets/images/logo3.png"

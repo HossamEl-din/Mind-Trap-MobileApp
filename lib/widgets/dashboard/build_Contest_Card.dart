@@ -174,18 +174,7 @@ Widget buildContestCard(String title, String time, String duration, String platf
                 child: const Center(child: Text("Join Now", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               ),
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(0, 45),
-                  side: const BorderSide(color: Colors.grey),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-                child: const Text("View Details", style: TextStyle(color: Colors.white)),
-              ),
-            ),
+           
           ],
         )
       ],

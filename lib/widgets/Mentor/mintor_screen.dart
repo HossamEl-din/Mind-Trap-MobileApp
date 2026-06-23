@@ -4,6 +4,7 @@ import 'package:grad/cubits/Mentor_Cubit/mentor_Cubit.dart';
 import 'package:grad/cubits/Mentor_Cubit/mentor_State.dart';
 import 'package:grad/widgets/Mentor/build_FindMentorTab.dart';
 import 'package:grad/widgets/Mentor/build_PendingRequestCard.dart';
+import 'package:grad/widgets/Mentor/build_StudentCard.dart';
 class MentorshipScreen extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
    MentorshipScreen({super.key});
@@ -176,7 +177,7 @@ class MentorshipScreen extends StatelessWidget {
                     String name = student['name'] ?? 'Unknown';
                     String email = student['email'] ?? 'No Email';
                     
-                    return _buildStudentCard(name, email);
+                    return buildStudentCard(name, email);
                   }).toList(),
                 ),
         ],
@@ -185,20 +186,4 @@ class MentorshipScreen extends StatelessWidget {
   }
 
   
-  
-
-  Widget _buildStudentCard(String name, String email) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 15),
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(color: const Color(0xFF1E293B), borderRadius: BorderRadius.circular(15), border: const Border(left: BorderSide(color: Color(0xFF818CF8), width: 4))),
-      child: ListTile(
-        contentPadding: EdgeInsets.zero,
-        leading: CircleAvatar(backgroundColor: const Color(0xFF818CF8), child: Text(name[0], style: const TextStyle(color: Colors.white))),
-        title: Text(name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        subtitle: Text(email, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-        trailing: const Icon(Icons.chat_bubble_outline, color: Colors.cyanAccent),
-      ),
-    );
-  }
 }

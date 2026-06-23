@@ -3,6 +3,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Auth_State.dart';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart' as googleAuth;
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 final Dio _dio = Dio(BaseOptions(
@@ -116,4 +117,61 @@ void register({
     emit(AuthFailure("An unexpected error occurred"));
   }
 }
+void loginWithGoogle() async {
+    emit(AuthLoading());
+
+    try {
+      
+      final googleAuth.GoogleSignIn googleSignIn = googleAuth.GoogleSignIn();
+      final googleAuth.GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+      if (googleUser == null) {
+        emit(AuthFailure("Google Sign-In was canceled"));
+        return;
+      }
+
+      final googleAuth.GoogleSignInAuthentication googleAuthentication = await googleUser.authentication;
+      final String? idToken = googleAuthentication.idToken;
+
+      if (idToken == null) {
+        emit(AuthFailure("Failed to get Google ID Token"));
+        return;
+      }
+
+      final response = await _dio.post(
+        '/api/Auth/google-auth',
+        data: {
+          "idToken": idToken,
+          "skillLevel": "Beginner", 
+        },
+      );
+
+      
+      if (response.statusCode == 200) {
+        print("Google Login Success: ${response.data}");
+        String token = response.data['token'];
+        
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+        final prefs = await SharedPreferences.getInstance();
+        
+        String userNameFromToken = decodedToken['unique_name'] ?? googleUser.displayName ?? "User";
+        await prefs.setString('name', userNameFromToken);
+        await prefs.setString('token', token);
+
+        emit(AuthSuccess());
+      } else {
+        emit(AuthFailure("Login failed: ${response.data['message'] ?? 'Unknown error'}"));
+      }
+    } on DioException catch (e) {
+      print("Dio Error: ${e.message}");
+      String errorMessage = "Connection error";
+      if (e.response != null) {
+        errorMessage = e.response?.data['message'] ?? "Google authentication failed on server";
+      }
+      emit(AuthFailure(errorMessage));
+    } catch (e) {
+      print("Google Login Error: $e");
+      emit(AuthFailure("An unexpected error occurred during Google Sign-In"));
+    }
+  }
 }
