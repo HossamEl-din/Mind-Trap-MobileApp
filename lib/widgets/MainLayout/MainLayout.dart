@@ -40,7 +40,7 @@ class _MainLayoutState extends State<MainLayout> {
       
       endDrawer: _buildEndDrawer(context),
       
-      body: _pages[_currentIndex < 3 ? _currentIndex : 0], 
+      body: _pages[_currentIndex < 4 ? _currentIndex : 0], 
 
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(), 

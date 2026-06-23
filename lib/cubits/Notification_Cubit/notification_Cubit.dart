@@ -12,7 +12,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   }
 
 
-  Future<void> fetchNotifications() async {
+ Future<void> fetchNotifications() async {
     emit(state.copyWith(isLoading: true, error: ''));
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -23,12 +23,22 @@ class NotificationCubit extends Cubit<NotificationState> {
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
-      if (response.statusCode == 200) {
-        emit(state.copyWith(isLoading: false, notifications: response.data));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final List<dynamic> responseData = response.data;
+        final List<Map<String, dynamic>> parsedNotifications = 
+            List<Map<String, dynamic>>.from(responseData);
+
+        emit(state.copyWith(isLoading: false, notifications: parsedNotifications));
       }
     } catch (e) {
       emit(state.copyWith(isLoading: false, error: 'Failed to load notifications.'));
-      print("Fetch Notifications Error: $e");
+      
+      if (e is DioException) {
+        print(" Dio Error Status: ${e.response?.statusCode}");
+        print(" Dio Error Data: ${e.response?.data}");
+      } else {
+        print(" Format/Other Error: $e");
+      }
     }
   }
 
