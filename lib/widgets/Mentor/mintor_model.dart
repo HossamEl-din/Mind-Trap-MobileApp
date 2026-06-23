@@ -20,7 +20,7 @@ class Mentor {
   });
 
   factory Mentor.fromJson(Map<String, dynamic> json) {
-    // تحديد لون عشوائي ثابت بناءً على رقم الـ ID
+ 
     final List<Color> colors = [
       const Color(0xFF818CF8), const Color(0xFFF59E0B), const Color(0xFF10B981), 
       const Color(0xFFEC4899), const Color(0xFF6366F1), const Color(0xFF14B8A6)
@@ -28,29 +28,24 @@ class Mentor {
     int id = json['id'] ?? 0;
     Color bg = colors[id % colors.length];
 
-    // تجميع البادجات
+    
     List<String> mentorBadges = [];
     if (json['mentoringLevel'] != null) mentorBadges.add(json['mentoringLevel']);
 
-    // ==========================================
-    // 1. حساب السعة زي الويب بالظبط
-    // ==========================================
+    
     int current = json['currentStudents'] ?? json['capacityCurrent'] ?? 0;
-    int max = json['maxStudents'] ?? json['capacityMax'] ?? 5; // خلينا الديفولت 5 زي الويب
+    int max = json['maxStudents'] ?? json['capacityMax'] ?? 5; 
     bool isReallyFull = current >= max;
 
-    // ==========================================
-    // 2. حساب حالة الإتاحة النهائية
-    // ==========================================
+   
     String backendStatus = json['status'] ?? json['availabilityStatus'] ?? 'Available';
     String finalStatus = backendStatus;
     
-    // لو الحالة مش 'requested' ولا 'active' (يعني المنتور ده في الشاشة العامة)
+   
     if (backendStatus.toLowerCase() != 'requested' && backendStatus.toLowerCase() != 'active') {
       finalStatus = isReallyFull ? 'Full' : 'Available';
     }
 
-    // تظبيط الاسم واختصار الحروف (Initials) زي الويب
     String mentorName = json['name'] ?? json['mentorName'] ?? json['fullName'] ?? 'Unknown';
     String computedInitials = json['initials'] ?? 
         (mentorName.length >= 2 ? mentorName.substring(0, 2).toUpperCase() : 'M');
@@ -64,7 +59,7 @@ class Mentor {
       description: json['bio'] ?? 'No description available.',
       rating: (json['rating'] ?? 0).toDouble(),
       reviews: json['reviewCount'] ?? 0,
-      students: json['studentsHelped'] ?? current, // اعتمدنا على السعة الحالية لو مفيش رقم طلاب
+      students: json['studentsHelped'] ?? current, 
       experience: json['experienceYears'] ?? 0,
       maxCapacity: max,
       currentCapacity: current,
@@ -75,7 +70,7 @@ class Mentor {
       email: json['email'] ?? '',
       whatsapp: json['whatsAppLink'] ?? '',
       linkedin: json['linkedInProfile'] ?? '',
-      availability: finalStatus, // 👈 ربطنا الحالة النهائية هنا
+      availability: finalStatus, 
     );
   }
 }

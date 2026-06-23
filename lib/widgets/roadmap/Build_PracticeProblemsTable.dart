@@ -48,18 +48,18 @@ class PracticeProblemsTable extends StatelessWidget {
           ),
           const Divider(height: 1, color: Colors.white10),
 
-          // 2. لو التوبيك مفيهوش مسائل راجعة من السيرفر
+         
           if (problems.isEmpty)
             const Padding(
               padding: EdgeInsets.all(20.0),
               child: Text("No problems available yet.", style: TextStyle(color: Colors.grey)),
             ),
 
-          // 3. هنا السحر: بنلف على المسائل الحقيقية ونرسم سطر لكل مسألة 
+         
           ...List.generate(problems.length, (index) {
             final problem = problems[index];
             
-            // عشان نعمل ترقيم الحروف (A., B., C.) ديناميك زي ما كنت عاملها
+           
             String letter = '${String.fromCharCode(65 + index)}.'; 
 
             return Column(
@@ -82,7 +82,7 @@ class PracticeProblemsTable extends StatelessWidget {
                     ),
                   );
                   
-                  // 👈 ده هيحدث المسائل اللي في الشاشة الحالية عشان زرار Solved ينور
+                 
                   if (context.mounted) {
                     context.read<TopicDetailsCubit>().loadTopicDetails(topicId);
                     context.read<PracticeCubit>().init();
@@ -90,7 +90,7 @@ class PracticeProblemsTable extends StatelessWidget {
                 },
                 ),
                 
-                // بنرسم خط فاصل تحت كل مسألة ما عدا المسألة الأخيرة
+               
                 if (index != problems.length - 1)
                   const Divider(height: 1, color: Colors.white10),
               ],

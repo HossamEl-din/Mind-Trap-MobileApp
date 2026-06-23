@@ -50,11 +50,8 @@ class Contest {
     }
   }
 
-  // ==========================================
-  // 👇 إضافة دالة fromJson عشان نقرأ من الـ API
-  // ==========================================
   factory Contest.fromJson(Map<String, dynamic> json) {
-    // 1. تحويل اسم المنصة لـ Enum
+    
     ContestPlatform parsePlatform(String p) {
       switch (p.toLowerCase()) {
         case 'codeforces': return ContestPlatform.codeforces;
@@ -65,12 +62,12 @@ class Contest {
       }
     }
 
-    // 2. تحويل حالة المسابقة لـ Enum
+  
     ContestStatus parseStatus(String s) {
       return s.toUpperCase() == 'LIVE' ? ContestStatus.live : ContestStatus.upcoming;
     }
 
-    // 3. تحويل التاريخ اللي فيه PM/AM لـ DateTime
+
     DateTime parseDateTime(String dt) {
       try {
         List<String> parts = dt.split(' ');
@@ -85,11 +82,11 @@ class Contest {
         }
         return DateTime.parse(dt);
       } catch (e) {
-        return DateTime.now(); // قيمة احتياطية لو حصل خطأ
+        return DateTime.now(); 
       }
     }
 
-    // 4. تحويل المدة (مثال: "03:00")
+    
     Duration parseDuration(String dur) {
       try {
         List<String> parts = dur.split(':');
@@ -100,13 +97,13 @@ class Contest {
     }
 
     return Contest(
-      id: json['id'].toString(), // الـ ID جاي رقم هنحوله String
+      id: json['id'].toString(), 
       title: json['title'] ?? 'Unknown Contest',
       platform: parsePlatform(json['platform'] ?? ''),
       status: parseStatus(json['status'] ?? 'UPCOMING'),
       startTime: parseDateTime(json['startTime'] ?? ''),
       duration: parseDuration(json['duration'] ?? '02:00'),
-      participantsCount: json['participantCount'] ?? 0, // بنعوض الـ null بـ 0
+      participantsCount: json['participantCount'] ?? 0, 
       timeRemaining: null,
       url: json['url'] ?? '',
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 Widget buildLevelCard(String icon, String label, bool isSelected, VoidCallback onTap) => GestureDetector(
-  onTap: onTap, // تفعيل الضغط
-  child: AnimatedContainer( // AnimatedContainer عشان اللون يتغير بنعومة
+  onTap: onTap, 
+  child: AnimatedContainer( 
     duration: const Duration(milliseconds: 200),
     decoration: BoxDecoration(
       color: const Color(0xFF1E293B),

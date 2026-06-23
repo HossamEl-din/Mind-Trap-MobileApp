@@ -37,14 +37,14 @@ class _MainLayoutState extends State<MainLayout> {
       
       appBar: _buildGlobalAppBar(context),
       
-      // 👈 ضفنا القائمة الجانبية هنا (تفتح من اليمين)
+      
       endDrawer: _buildEndDrawer(context),
       
-      body: _pages[_currentIndex < 4 ? _currentIndex : 0], 
+      body: _pages[_currentIndex < 3 ? _currentIndex : 0], 
 
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(), 
-        notchMargin: 8.0,
+        notchMargin: 7.0,
         color: const Color(0xFF1A2235),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -72,7 +72,7 @@ class _MainLayoutState extends State<MainLayout> {
     );
   }
 
-  // --- دالة بناء الـ AppBar ---
+ 
   PreferredSizeWidget _buildGlobalAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
@@ -92,7 +92,7 @@ class _MainLayoutState extends State<MainLayout> {
                 cubit.state.settings['Challenge Notification'] ?? true);
 
             return Badge(
-              // الـ Badge هيظهر بس لو الإشعارات متفعلة (isEnabled) وكمان في رسايل جديدة
+              
               isLabelVisible: isEnabled && notifState.unreadCount > 0,
               label: Text('${notifState.unreadCount}', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               backgroundColor: Colors.redAccent,
@@ -114,26 +114,25 @@ class _MainLayoutState extends State<MainLayout> {
             return IconButton(
               icon: const Icon(Icons.menu, color: Colors.white, size: 28),
               onPressed: () {
-                // فتح القائمة الجانبية
+               
                 Scaffold.of(context).openEndDrawer();
               },
             );
           }
         ),
-        const SizedBox(width: 8), // مسافة صغيرة من الحافة
+        const SizedBox(width: 8), 
       ],
     );
   }
 
-  // --- دالة بناء القائمة الجانبية (Drawer) ---
+
   Widget _buildEndDrawer(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFF0F172A), // لون متناسق مع التطبيق
+      backgroundColor: const Color(0xFF0F172A), 
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // رأس القائمة (ممكن تحط فيها صورة اليوزر واسمه مستقبلاً)
-         // رأس القائمة (مربوط بالـ Cubit عشان يكون ديناميك)
+      
           DrawerHeader(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -142,7 +141,7 @@ class _MainLayoutState extends State<MainLayout> {
                 end: Alignment.bottomRight,
               ),
             ),
-            // 👈 غلفنا المحتوى بـ BlocBuilder عشان يقرأ من الـ State
+           
             child: BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
                 return Column(
@@ -153,13 +152,13 @@ class _MainLayoutState extends State<MainLayout> {
                       backgroundColor: Colors.white24,
                       radius: 35,
                       child: Text(
-                        state.initials, // 👈 الحروف بقت ديناميك هنا
+                        state.initials, 
                         style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      state.fullName, // 👈 الاسم بالكامل بقى ديناميك هنا
+                      state.fullName,
                       style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -182,7 +181,7 @@ class _MainLayoutState extends State<MainLayout> {
               },
           ),
           ListTile(
-              leading: const Icon(Icons.people_alt, color: Color(0xFF818CF8)), // أيقونة المنتور
+              leading: const Icon(Icons.people_alt, color: Color(0xFF818CF8)), 
               title: const Text(
                 'Mentorship', 
                 style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)
@@ -213,12 +212,12 @@ class _MainLayoutState extends State<MainLayout> {
             },
           ),
           
-          // عنصر إضافي كمثال
+         
           ListTile(
             leading: const Icon(Icons.help_outline, color: Colors.grey),
             title: const Text('Help & Support', style: TextStyle(color: Colors.grey)),
             onTap: () {
-              // TODO: مسار الدعم الفني
+              
             },
           ),
           

@@ -21,28 +21,28 @@ class RoadmapScreen extends StatelessWidget {
             } 
             
           if (state is RoadmapSuccess) {
-            // 1. تعريف المتغيرات اللي هنجمع فيها الإحصائيات
+            
             int totalSolved = 0;
             int totalProblems = 0;
             int completedTopics = 0;
             int totalTopicsCount = 0;
            
 
-            // 2. عملية الجمع من كل المستويات والتوبيكس
+         
             for (var level in state.levels) {
               for (var topic in level.topics) {
                 totalTopicsCount++;
                 totalSolved += topic.solvedProblems;
                 totalProblems += topic.totalProblems;
                 
-                // لو عدد المسائل المحلولة بيساوي العدد الكلي للتوبيك، يبقى التوبيك ده خلص
+              
                 if (topic.solvedProblems == topic.totalProblems && topic.totalProblems > 0) {
                   completedTopics++;
                 }
               }
             }
 
-            // 3. حساب النسبة المئوية الكلية للمسار (من 0 لـ 1)
+          
             double overallProgress = totalProblems > 0 ? (totalSolved / totalProblems) : 0.0;
 
             return SingleChildScrollView(
@@ -56,12 +56,12 @@ class RoadmapScreen extends StatelessWidget {
                   
                   const SizedBox(height: 24),
                   
-                  // 👈 هنا استدعينا الكارت وباصيناله الأرقام الحقيقية اللي حسبناها
+                  
                   StatsCard(
                     problemsSolved: state.totalProblemsSolved,
                     topicsCompleted: completedTopics,
                     totalTopics: totalTopicsCount,
-                    dayStreak: state.dayStreak, // رقم ثابت مؤقتاً لحد ما الـ API يدعمه
+                    dayStreak: state.dayStreak, 
                     progressPercentage: overallProgress,
 
                   ),

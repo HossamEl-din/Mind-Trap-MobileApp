@@ -7,7 +7,7 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // استخدمنا BlocProvider هنا عشان الكيوبت يشتغل مع فتح الشاشة
+    
     return Scaffold(
       backgroundColor: const Color(0xFF0F172A),
       appBar: AppBar(
@@ -47,7 +47,7 @@ class NotificationsScreen extends StatelessWidget {
               final bool isRead = notif['isRead'] ?? true;
               final String type = notif['type'] ?? '';
               
-              // تحديد الأيقونة بناءً على نوع الإشعار
+            
               IconData iconData = Icons.notifications;
               Color iconColor = Colors.grey;
               if (type == 'BattleInvite') {
@@ -55,22 +55,22 @@ class NotificationsScreen extends StatelessWidget {
                 iconColor = Colors.orangeAccent;
               }
     
-              // تنسيق الوقت بشكل بسيط
+           
               String timeAgo = _formatDate(notif['createdAt'] ?? '');
     
               return GestureDetector(
                 onTap: () {
-                  // لو مش مقروء، خليه مقروء في السيرفر والـ UI
+                  
                   if (!isRead) {
                     context.read<NotificationCubit>().markAsRead(notif['id']);
                   }
-                  // TODO: لو حابب تفتح المعركة لما يضغط على الإشعار، ضيف مسار الـ Navigation هنا
+                 
                 },
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 12),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    // لون أفتح شوية للإشعار الجديد
+                
                     color: isRead ? const Color(0xFF1E293B) : const Color(0xFF2B3A55),
                     borderRadius: BorderRadius.circular(15),
                     border: isRead ? null : Border.all(color: const Color(0xFF38BDF8).withOpacity(0.5), width: 1),
@@ -92,7 +92,7 @@ class NotificationsScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white, 
                                 fontSize: 15, 
-                                fontWeight: isRead ? FontWeight.normal : FontWeight.bold, // الخط بيكون عريض لو جديد
+                                fontWeight: isRead ? FontWeight.normal : FontWeight.bold, 
                               ),
                             ),
                             const SizedBox(height: 8),
@@ -117,14 +117,14 @@ class NotificationsScreen extends StatelessWidget {
     );
   }
 
-  // دالة مساعدة لقص وعرض التاريخ بصيغة أسهل
+ 
   String _formatDate(String isoDate) {
     if (isoDate.isEmpty) return '';
     try {
       DateTime date = DateTime.parse(isoDate);
       return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}";
     } catch (e) {
-      return isoDate.split('T').first; // استخراج التاريخ فقط في حالة الخطأ
+      return isoDate.split('T').first; 
     }
   }
 }

@@ -26,7 +26,7 @@ import 'package:grad/widgets/Challenge/build_DynamicChallengeCard.dart';
       itemCount: currentList.length,
       itemBuilder: (context, index) {
         final challenge = currentList[index];
-        // بنباصي التاب الحالي والـ Context عشان نقدر نكلم الـ Cubit
+       
         return buildDynamicChallengeCard(context, challenge, state.activeTab);
       },
     );

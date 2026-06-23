@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget buildStatCard(String value, String label, IconData icon, Color color, String badge) {
   return Container(
     padding: const EdgeInsets.all(10),
-    // ارتفاع 200 ممكن يتلغي لأن الـ GridView هو اللي بيتحكم في الحجم، بس هنسيبه لو ضابط معاك
+   
     height: 450, 
     decoration: BoxDecoration(
       color: const Color(0xFF1A2235),
@@ -18,7 +18,7 @@ Widget buildStatCard(String value, String label, IconData icon, Color color, Str
           children: [
             Icon(icon, color: color, size: 30),
             
-            // 👈 التعديل هنا: المربع ده مش هيترسم غير لو فيه قيمة بجد في البادج
+         
             if (badge.isNotEmpty)
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),

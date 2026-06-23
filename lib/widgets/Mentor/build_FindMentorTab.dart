@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad/cubits/Mentor_Cubit/mentor_Cubit.dart';
 import 'package:grad/cubits/Mentor_Cubit/mentor_State.dart';
 import 'package:grad/widgets/Mentor/build_GradientButton.dart';
-import 'package:grad/widgets/Mentor/build_MyMentorShip.dart';
 import 'package:grad/widgets/Mentor/build_StateCardMentor.dart';
 import 'package:grad/widgets/Mentor/build_showBecomeMentorSheet.dart';
 import 'package:grad/widgets/Mentor/mintor_model.dart';
@@ -49,7 +48,7 @@ Widget buildFindMentorTab(BuildContext context, MentorshipState state) {
        
         GridView.count(
           crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 15, shrinkWrap: true,
-          childAspectRatio: 1.3, // 👈 الرقم ده اللي هيحل الـ Overflow
+          childAspectRatio: 1.3, 
           physics: const NeverScrollableScrollPhysics(),
           children: [
             build_StatCardMentor(Icons.people_alt_rounded, activeMentors, 'Active Mentors'),
@@ -74,9 +73,9 @@ Widget buildFindMentorTab(BuildContext context, MentorshipState state) {
                   itemBuilder: (context, index) {
                   
                     final myMentorData = state.myConnectedMentors[index];
-                    final mentorId = myMentorData['mentorId']; // الـ ID بتاع المنتور
+                    final mentorId = myMentorData['mentorId']; 
     
-                    // 2. اللوجيك العبقري: بنلف في لستة المنتورز الكاملة عشان نجيب بياناته (واتساب، لينكد إن، الخ)
+                   
                     Mentor? fullMentorDetails;
                     try {
                       
@@ -113,7 +112,7 @@ Widget buildFindMentorTab(BuildContext context, MentorshipState state) {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF151E2E), // لون غامق زي الويب
+                      color: const Color(0xFF151E2E), 
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withOpacity(0.1)),
                     ),
@@ -240,7 +239,7 @@ Widget buildMyMentorCard(
         ),
         const SizedBox(width: 12),
         
-        // 2. الاسم والمستوى
+       
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,11 +259,11 @@ Widget buildMyMentorCard(
           ),
         ),
         
-        // 3. الزراير (Contact & End)
+      
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // زرار Contact
+           
             InkWell(
               onTap: () => showMyMentorContactDialog(context, myMentorData, fullMentorDetails),
               child: Container(
@@ -308,7 +307,7 @@ Widget buildMyMentorCard(
 
 
 void showMyMentorContactDialog(BuildContext context, Map<String, dynamic> myMentorData, Mentor? fullMentorDetails) {
-  // بنجيب الداتا من fullMentorDetails لو موجود، لو مش موجود بنجيبها من myMentorData
+  
   String phone = fullMentorDetails?.phone ?? myMentorData['phone'] ?? 'N/A';
   String email = fullMentorDetails?.email ?? 'N/A';
   String whatsapp = fullMentorDetails?.whatsapp ?? '';
@@ -339,7 +338,7 @@ void showMyMentorContactDialog(BuildContext context, Map<String, dynamic> myMent
               ),
               const SizedBox(height: 15),
               
-              // Mentor Info
+            
               Row(
                 children: [
                   Container(
@@ -359,7 +358,6 @@ void showMyMentorContactDialog(BuildContext context, Map<String, dynamic> myMent
               ),
               const SizedBox(height: 25),
 
-              // Contact Links
               _buildDialogContactRow(dialogContext, 'PHONE NUMBER', phone, 'Copy', isCopy: true),
               const SizedBox(height: 15),
               _buildDialogContactRow(dialogContext, 'EMAIL ADDRESS', email, 'Copy', isCopy: true),
@@ -395,9 +393,7 @@ Widget _buildDialogContactRow(BuildContext context, String title, String value, 
         InkWell(
           onTap: () async {
             if (isCopy) {
-              // ==========================================
-              // 1. كود النسخ (Copy)
-              // ==========================================
+             
               await Clipboard.setData(ClipboardData(text: value));
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -446,7 +442,7 @@ Widget _buildDialogContactRow(BuildContext context, String title, String value, 
   );
 }
 void showRateAndEndDialog(BuildContext context, int mentorId, int connectionId) {
-  // 👈 1. سحبنا الكيوبت هنا بره خالص باستخدام الـ context الأصلي بتاع الشاشة
+ 
   final cubit = context.read<MentorshipCubit>();
   
   int selectedRating = 0;
@@ -457,7 +453,7 @@ void showRateAndEndDialog(BuildContext context, int mentorId, int connectionId) 
     barrierDismissible: false,
     builder: (dialogContext) {
       return StatefulBuilder(
-        // 👈 2. غيرنا اسم الـ context هنا لـ statefulContext عشان ميتلخبطش مع الأصلي
+      
         builder: (statefulContext, setState) {
           return AlertDialog(
             backgroundColor: const Color(0xFF1E293B),
@@ -506,7 +502,7 @@ void showRateAndEndDialog(BuildContext context, int mentorId, int connectionId) 
                 onPressed: (selectedRating == 0 || isSubmitting) ? null : () async {
                   setState(() => isSubmitting = true);
                   
-                  // 👈 3. استخدمنا المتغير cubit اللي جهزناه فوق خالص
+                 
                   await cubit.rateMentor(mentorId, selectedRating);
                   bool success = await cubit.endMentorshipConnection(connectionId);
                   

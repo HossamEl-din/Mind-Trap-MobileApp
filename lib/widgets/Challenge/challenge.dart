@@ -48,7 +48,7 @@ class ChallengeArena_Screen extends StatelessWidget {
           }
     
           if (state is ChallengeArenaSuccess) {
-            // معالجة وحساب الإحصائيات هنا
+            
             final stats = state.stats;
             final int totalBattles = (stats['totalBattles'] ?? 0) is int 
                 ? (stats['totalBattles'] ?? 0) as int 
@@ -81,7 +81,7 @@ class ChallengeArena_Screen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Battle Arena ⚔️", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                        const Text("Battle Arena ", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
                         ElevatedButton.icon(
                           onPressed: () {
                             final challengeCubit = context.read<ChallengeArenaCubit>();

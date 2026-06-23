@@ -32,9 +32,7 @@ import 'package:grad/cubits/Mentor_Cubit/mentor_Cubit.dart';
           const SizedBox(height: 15),
           Row(
             children: [
-              // ==========================================
-              // زرار القبول (Accept)
-              // ==========================================
+           
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.greenAccent.withOpacity(0.2), foregroundColor: Colors.greenAccent),
@@ -52,9 +50,7 @@ import 'package:grad/cubits/Mentor_Cubit/mentor_Cubit.dart';
                 ),
               ),
               const SizedBox(width: 10),
-              // ==========================================
-              // زرار الرفض (Reject)
-              // ==========================================
+            
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent.withOpacity(0.2), foregroundColor: Colors.redAccent),

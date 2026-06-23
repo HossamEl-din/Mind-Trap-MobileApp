@@ -18,7 +18,7 @@ Widget buildStreakCard({required int streakDays}) {
         const Text("Days in a row!", style: TextStyle(color: Colors.grey)),
         const SizedBox(height: 20),
         
-        // 👈 الشرط ده عشان لو الستريك بصفر، ميعملش مساحة فاضية على الفاضي
+    
         if (streakDays > 0)
           Container(
             padding: const EdgeInsets.all(8),
@@ -26,14 +26,14 @@ Widget buildStreakCard({required int streakDays}) {
               spacing: 7, 
               runSpacing: 5,
               alignment: WrapAlignment.center,
-              // 👈 خلينا العدد هنا هو نفس رقم الستريك
+           
               children: List.generate(streakDays, (index) {
                 return Container(
                   width: 30,
                   height: 30,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    // المربعات كلها هتنور لأننا مش بنرسم غير الـ Active بس
+                   
                     gradient: const LinearGradient(colors: [Color(0xFFFF8C00), Color(0xFFFF0080)]),
                     border: Border.all(color: Colors.white10),
                   ),

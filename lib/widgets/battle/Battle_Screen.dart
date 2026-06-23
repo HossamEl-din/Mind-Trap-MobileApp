@@ -17,7 +17,7 @@ class BattleScreen extends StatefulWidget {
     super.key, 
     required this.challengeId, 
     required this.problemId,
-    this.isPractice = false, // Default is false (Battle Mode)
+    this.isPractice = false, 
   });
   
 
@@ -26,7 +26,7 @@ class BattleScreen extends StatefulWidget {
 }
 
 class _BattleScreenState extends State<BattleScreen> {
-  // اللغة الافتراضية
+  
   String selectedLanguage = 'C++';
   
   final Map<String, int> languageMap = {
@@ -45,8 +45,7 @@ class _BattleScreenState extends State<BattleScreen> {
     final prefs = await SharedPreferences.getInstance();
     // بنقرا الكود باستخدام الـ ID بتاع المسألة
     final savedCode = prefs.getString('saved_code_${widget.challengeId}');
-    
-    // لو لقينا كود محفوظ، بنحطه في مربع النص فوراً
+   
     if (savedCode != null && savedCode.trim().isNotEmpty) {
       setState(() {
         codeController.text = savedCode;
@@ -54,7 +53,7 @@ class _BattleScreenState extends State<BattleScreen> {
     }
   }
  final TextEditingController codeController = TextEditingController(
-    // text: 'def twoSum(nums, target):\n    # Your code here\n    return []',
+   
   );
 
  
@@ -69,14 +68,14 @@ class _BattleScreenState extends State<BattleScreen> {
   @override
   Widget build(BuildContext context) {
    return BlocProvider(
-      // بننشئ الـ Cubit وبنبعتله الـ ID وبنقوله يـ fetch الداتا فوراً
+     
       create: (context) => BattleCubit(challengeId: widget.challengeId, problemId: widget.problemId, isPractice: widget.isPractice)..fetchProblemDetails(),
      child: WillPopScope(
         onWillPop: () async {
-          // 1. ننزل الكيبورد الأول
+        
         
           
-          // 3. نسمح للشاشة إنها تقفل بأمان
+        
           return true; 
         },
         child: Scaffold(
@@ -87,7 +86,7 @@ class _BattleScreenState extends State<BattleScreen> {
             iconTheme: const IconThemeData(color: Colors.white),
             title: const Text("Problem Details", style: TextStyle(color: Colors.white, fontSize: 18)),
             
-            // 👈 ضفنا السهم المخصص هنا عشان يعمل نفس التأخير
+         
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
@@ -97,8 +96,7 @@ class _BattleScreenState extends State<BattleScreen> {
               },
             ),
           ),
-          // ... باقي الكود بتاع الـ body زي ما هو
-          // استخدمنا BlocConsumer عشان نقدر نتصرف بناءً على الـ State
+         
           body: BlocConsumer<BattleCubit, BattleState>(
             listener: (context, state) {
               
@@ -111,19 +109,19 @@ class _BattleScreenState extends State<BattleScreen> {
       backgroundColor: const Color(0xFF1A2235),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16), 
-        // 👈 لو براكتس هنخلي الإطار أخضر، لو تحدي هنخليه دهبي
+       
         side: BorderSide(color: widget.isPractice ? Colors.blueAccent : Colors.amber, width: 2)
       ),
       title: Row(
         children: [
-          // 👈 تغيير الأيقونة
+          
           Icon(
             widget.isPractice ? Icons.check_circle : Icons.emoji_events, 
             color: widget.isPractice ? Colors.greenAccent : Colors.amber, 
             size: 32
           ),
           const SizedBox(width: 10),
-          // 👈 تغيير العنوان
+         
           Text(
             widget.isPractice ? "Problem Solved!" : "Battle Won!", 
             style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
@@ -131,7 +129,7 @@ class _BattleScreenState extends State<BattleScreen> {
         ],
       ),
       content: Text(
-        // 👈 تغيير الرسالة اللي بالعربي
+      
         widget.isPractice 
          ? "Correct answer, awesome job! \nYour solution has been recorded successfully."
     : "Correct answer, brilliant! \nChallenge points have been added to your Leaderboard.",
@@ -143,7 +141,7 @@ class _BattleScreenState extends State<BattleScreen> {
           child: const Text("Stay Here", style: TextStyle(color: Colors.white70)),
         ),
         ElevatedButton(
-          // 👈 تغيير لون الزرار
+       
           style: ElevatedButton.styleFrom(
             backgroundColor: widget.isPractice ? Colors.blueAccent : Colors.amber, 
             foregroundColor: Colors.black
@@ -153,7 +151,7 @@ class _BattleScreenState extends State<BattleScreen> {
             Navigator.pop(dialogContext); 
             Navigator.pop(context); 
           },
-          // 👈 تغيير كلمة الزرار
+        
           child: Text(
             widget.isPractice ? "Go Back" : "Back to Arena", 
             style: const TextStyle(fontWeight: FontWeight.bold)
@@ -175,7 +173,7 @@ class _BattleScreenState extends State<BattleScreen> {
               else if (state is HintLoading) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Analyzing code for a hint... 🤖"), 
+                    content: Text("Analyzing code for a hint... "), 
                     backgroundColor: Colors.indigo,
                     duration: Duration(seconds: 1),
                   ),
@@ -187,7 +185,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 );
               } 
               else if (state is HintLoaded) {
-                // 👈 رسمنا BottomSheet شيك بيعرض الهينت بلون دهبي
+              
                 showModalBottomSheet(
                   context: context,
                   backgroundColor: const Color(0xFF1A2235),
@@ -205,7 +203,7 @@ class _BattleScreenState extends State<BattleScreen> {
                               const Icon(Icons.lightbulb_outline, color: Colors.amber, size: 28),
                               const SizedBox(width: 10),
                               Text(
-                                "Hint Level ${state.level}/3", // بيكتبله ده انهي هينت
+                                "Hint Level ${state.level}/3", 
                                 style: const TextStyle(color: Colors.amber, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ],
@@ -234,11 +232,11 @@ class _BattleScreenState extends State<BattleScreen> {
                   },
                 );
               }
-              // 👈 الحالات الجديدة بتاعة الذكاء الاصطناعي
+             
               else if (state is AiHelpLoading) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("AI is thinking about the optimal solution... 🧠"), 
+                    content: Text("AI is thinking about the optimal solution... "), 
                     backgroundColor: Color(0xFF4A148C),
                     duration: Duration(seconds: 2),
                   ),
@@ -249,8 +247,7 @@ class _BattleScreenState extends State<BattleScreen> {
                   SnackBar(content: Text(state.message), backgroundColor: Colors.redAccent),
                 );
               } 
-              // 👈 الحالة الجديدة بتاعة تقرير الفشل
-            // 👈 حالة عرض تقرير الذكاء الاصطناعي (نجاح أو فشل)
+     
               else if (state is SubmitAnalysisLoaded) {
                 showModalBottomSheet(
                   context: context,
@@ -269,7 +266,7 @@ class _BattleScreenState extends State<BattleScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // 1. الهيدر (أيقونة والسكور) - تم حل مشكلة الـ Overflow هنا 👇
+                            
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -286,7 +283,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                           child: Text(
                                             state.isPassed ? "Awesome Job!" : "Submission Failed",
                                             style: TextStyle(color: state.isPassed ? Colors.amber : Colors.orangeAccent, fontSize: 20, fontWeight: FontWeight.bold),
-                                            overflow: TextOverflow.ellipsis, // 👈 دي اللي هتمنع الإيرور الأصفر
+                                            overflow: TextOverflow.ellipsis, 
                                           ),
                                         ),
                                       ],
@@ -311,7 +308,7 @@ class _BattleScreenState extends State<BattleScreen> {
                               Text(state.originalMessage, style: TextStyle(color: state.isPassed ? Colors.greenAccent : Colors.redAccent, fontSize: 14)),
                               const Divider(color: Color(0xFF2A3150), height: 30, thickness: 1),
                               
-                              // 2. الملخص والتقييم
+                            
                               const Text("AI Feedback:", style: TextStyle(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Text(state.brief, style: const TextStyle(color: Colors.white, fontSize: 15, height: 1.5)),
@@ -325,7 +322,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     if (!state.isPassed) ...[
-                                      // 👇 الكلمة اتغيرت هنا عشان تبقى منطقية
+                                     
                                       const Text("Correctness Analysis:", style: TextStyle(color: Colors.purpleAccent, fontWeight: FontWeight.bold)),
                                       const SizedBox(height: 4),
                                       Text(state.correctnessReason, style: const TextStyle(color: Colors.white70, fontSize: 14)),
@@ -348,7 +345,7 @@ class _BattleScreenState extends State<BattleScreen> {
                               ),
                               const SizedBox(height: 20),
 
-                              // 3. نقاط القوة والضعف (ديناميكية)
+                             
                               if (state.isPassed && state.strengths.isNotEmpty) ...[
                                 const Text("Strengths:", style: TextStyle(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold)),
                                 const SizedBox(height: 8),
@@ -376,7 +373,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                 const SizedBox(height: 24),
                               ],
 
-                              // 4. زرار الإغلاق
+                              
                             SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
@@ -385,7 +382,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                     padding: const EdgeInsets.symmetric(vertical: 12)
                                   ),
                                   onPressed: () {
-                                    // 👇 كده هيقفل الـ BottomSheet بس ويسيبك في نفس الشاشة
+                                   
                                     Navigator.pop(context); 
                                   },
                                   child: Text(
@@ -406,7 +403,7 @@ class _BattleScreenState extends State<BattleScreen> {
               else if (state is ProblemExplainLoading) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Breaking down the problem... 🔍"), 
+                    content: Text("Breaking down the problem... "), 
                     backgroundColor: Colors.pinkAccent,
                     duration: Duration(seconds: 2),
                   ),
@@ -447,13 +444,13 @@ class _BattleScreenState extends State<BattleScreen> {
                               ),
                               const SizedBox(height: 20),
                               
-                              // 1. الملخص
+                             
                               const Text("Overview:", style: TextStyle(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Text(state.explanation, style: const TextStyle(color: Colors.white, fontSize: 15, height: 1.5)),
                               const SizedBox(height: 20),
                               
-                              // 2. الخوارزمية (الخطوات)
+                              
                               const Text("Algorithm Steps:", style: TextStyle(color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
                               Container(
@@ -467,7 +464,7 @@ class _BattleScreenState extends State<BattleScreen> {
                               ),
                               const SizedBox(height: 20),
                               
-                              // 3. كروت الـ Complexity
+                              
                               Row(
                                 children: [
                                   Expanded(
@@ -503,7 +500,7 @@ class _BattleScreenState extends State<BattleScreen> {
                               ),
                               const SizedBox(height: 24),
                               
-                              // زرار القفل
+                              
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
@@ -615,7 +612,7 @@ class _BattleScreenState extends State<BattleScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // العنوان والحالة (ناجح ولا سقط)
+                         
                           Row(
                             children: [
                               Icon(
@@ -636,7 +633,7 @@ class _BattleScreenState extends State<BattleScreen> {
                           ),
                           const SizedBox(height: 20),
         
-                          // تفاصيل المدخلات والمخرجات
+                        
                           buildResultRow("Input:", state.input),
                           const SizedBox(height: 12),
                           buildResultRow("Expected Output:", state.expectedOutput),
@@ -683,12 +680,12 @@ class _BattleScreenState extends State<BattleScreen> {
                 return Center(child: Text(state.message, style: const TextStyle(color: Colors.red)));
               }
               
-              // 👈 حلينا مشكلة الشاشة البيضاء هنا
+              
              if (lastLoadedData == null) {
                 return const SizedBox(); 
               }
               
-              // 4. نقرأ الداتا من الذاكرة المحفوظة بدل ما نعتمد على الـ state الحالية بس
+            
               final data = lastLoadedData!;
               
               return SingleChildScrollView(
@@ -696,7 +693,7 @@ class _BattleScreenState extends State<BattleScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // 1. التاجز (Tags)
+                  
                     if (data.tags.isNotEmpty)
                       Wrap(
                         spacing: 10,
@@ -705,7 +702,7 @@ class _BattleScreenState extends State<BattleScreen> {
                       ),
                     if (data.tags.isNotEmpty) const SizedBox(height: 16),
         
-                    // 2. مستوى الصعوبة والمصدر
+                  
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -723,7 +720,7 @@ class _BattleScreenState extends State<BattleScreen> {
                     ),
                     const SizedBox(height: 20),
         
-                    // 3. اسم ووصف المسألة
+                   
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -746,7 +743,7 @@ class _BattleScreenState extends State<BattleScreen> {
                           ),
                           const SizedBox(height: 16),
                           
-                          // لو فيه Input Format راجع من السيرفر نعرضه
+                          
                           if (data.inputFormat.isNotEmpty)
                             Container(
                               width: double.infinity,
@@ -771,8 +768,7 @@ class _BattleScreenState extends State<BattleScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    
-                    // 4. مكان كتابة الكود
+                 
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(16),
@@ -791,7 +787,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                 "YOUR CODE",
                                 style: TextStyle(color: Colors.cyanAccent, fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 1.2),
                               ),
-                              // 👈 الدروب داون الجديد
+                             
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                                 decoration: BoxDecoration(
@@ -815,7 +811,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                       if (newValue != null) {
                                         setState(() {
                                           selectedLanguage = newValue;
-                                          // 💡 اختياري: نغير الكود المبدئي حسب اللغة
+                                          
                                           if (newValue == 'Python') {
                                             codeController.text = 'def solve():\n    # Your code here\n    pass';
                                           } else if (newValue == 'C++') {
@@ -910,7 +906,7 @@ class _BattleScreenState extends State<BattleScreen> {
                      onPressed: () {
                         final userCode = codeController.text;
                         if (userCode.trim().isNotEmpty) {
-                          // 👈 غيرنا دي لـ runCode
+                         
                           context.read<BattleCubit>().runCode(userCode, languageMap[selectedLanguage]!); 
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(

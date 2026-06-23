@@ -87,9 +87,7 @@ void showBecomeMentorSheet(BuildContext context) {
                   ),
                   const SizedBox(height: 20),
 
-                  // ==========================================
-                  // 👈 دمجنا Max Students و Experience في صف واحد
-                  // ==========================================
+           
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,7 +98,7 @@ void showBecomeMentorSheet(BuildContext context) {
                             const Text('Max Students *', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
                             const SizedBox(height: 10),
                             Container(
-                              height: 50, // توحيد الارتفاع مع الـ TextField
+                              height: 50, 
                               padding: const EdgeInsets.symmetric(horizontal: 15),
                               decoration: BoxDecoration(color: const Color(0xFF151E2E), borderRadius: BorderRadius.circular(12)),
                               child: DropdownButtonHideUnderline(
@@ -148,7 +146,7 @@ void showBecomeMentorSheet(BuildContext context) {
                       setSheetState(() => isSubmitting = true);
                       
                      
-                      // تحويل النص لرقم، ولو فاضي بيبعت 0
+                      
                       int exp = int.tryParse(experienceCtrl.text) ?? 0;
 
                       bool success = await mentorCubit.submitMentorApplication(
@@ -202,7 +200,7 @@ void showBecomeMentorSheet(BuildContext context) {
   );
 }
 
-// دالة الحقول النصية المساعدة
+
 Widget _buildInputField(String label, String hint, TextEditingController controller, {bool isPhone = false, bool isNumber = false, int maxLines = 1, bool isPaddingBottomZero = false}) {
   return Padding(
     padding: EdgeInsets.only(bottom: isPaddingBottomZero ? 0 : 20),
@@ -212,7 +210,7 @@ Widget _buildInputField(String label, String hint, TextEditingController control
         Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
         const SizedBox(height: 10),
         Container(
-          height: maxLines == 1 ? 50 : null, // توحيد الارتفاع للحقول ذات السطر الواحد
+          height: maxLines == 1 ? 50 : null, 
           decoration: BoxDecoration(
             color: const Color(0xFF151E2E), 
             borderRadius: BorderRadius.circular(12),

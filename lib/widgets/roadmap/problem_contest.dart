@@ -4,7 +4,7 @@ import 'package:grad/cubits/RoadMap_Cubit/topic_details_cubit.dart';
 import 'package:grad/widgets/roadmap/Build_LearnmatrialCard.dart';
 import 'package:grad/widgets/roadmap/Build_PracticeProblemsTable.dart';
 import 'package:url_launcher/url_launcher.dart';
-// استدعاء الكيوبت والموديلز
+
 
 
 class ConditionsScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ class ConditionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 👈 بنشغل الكيوبت أول ما الشاشة تفتح ونديله الـ ID
+    
     return BlocProvider(
       create: (context) => TopicDetailsCubit()..loadTopicDetails(topicId),
       child: Scaffold(
@@ -46,7 +46,7 @@ class ConditionsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 24),
 
-                      // الهيدر اللي فيه اسم التوبيك
+                      
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -77,7 +77,7 @@ class ConditionsScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
 
-                      // الماتريال (الفيديوهات والكتب) ديناميك
+                      
                       const Text('Learn Material', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white)),
                       const SizedBox(height: 16),
                       if (details.resources.isEmpty)
@@ -93,7 +93,7 @@ class ConditionsScreen extends StatelessWidget {
                               return LearnMaterialCard(
                                 title: resource.title,
                                 type: resource.type,
-                                duration: resource.language, // ممكن نستخدمها للغة حالياً لحد ما الباك يبعت المدة
+                                duration: resource.language, 
                                 iconBgColor: const Color(0xFF281E2E),
                                 iconColor: const Color(0xFFB57EDC),
                                 onTap: () async {
@@ -110,16 +110,16 @@ class ConditionsScreen extends StatelessWidget {
                         ),
                       const SizedBox(height: 32),
 
-                      // المسائل ديناميك (هتحتاج تعدل PracticeProblemsTable عشان تستقبل List<ProblemModel>)
+                 
                       const Text('Practice Problems', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white)),
                       const SizedBox(height: 16), 
-                      PracticeProblemsTable(problems: details.problems, topicId: details.id), // 👈 باصينا المسائل هنا
+                      PracticeProblemsTable(problems: details.problems, topicId: details.id), 
                     ],
                   ),
                 );
               }
 
-              return const SizedBox(); // في حالة الـ Initial
+              return const SizedBox(); 
             },
           ),
         ),

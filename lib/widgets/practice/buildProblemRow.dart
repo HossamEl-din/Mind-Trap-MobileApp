@@ -55,7 +55,7 @@ Widget buildProblemRow(
       builder: (context) => BattleScreen(challengeId: id, problemId: id, isPractice: true),
     ),
   ).then((_) {
-    // السطر ده عشان يعمل Refresh لما ترجع (تأكد إن اسم الدالة عندك init أو حسب ما مسميها)
+    
     context.read<PracticeCubit>().init(); 
   });
 },

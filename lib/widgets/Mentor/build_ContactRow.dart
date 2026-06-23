@@ -33,9 +33,9 @@ Widget buildContactRow(BuildContext context, IconData icon, String label, String
         
         TextButton(
           onPressed: () {
-            // كود نسخ النص
+            
             Clipboard.setData(ClipboardData(text: value));
-            // رسالة تأكيد للنسخ
+            
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('$label Copied!'),
               backgroundColor: const Color(0xFF818CF8),

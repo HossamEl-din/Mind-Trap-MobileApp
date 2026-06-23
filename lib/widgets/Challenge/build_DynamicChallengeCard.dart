@@ -71,9 +71,9 @@ import 'package:grad/widgets/battle/Battle_Screen.dart';
                         const SizedBox(width: 8),
                        ElevatedButton(
                         onPressed: () async {
-                          // بنستنى النتيجة من الكيوبت
+                         
                           final error = await context.read<ChallengeArenaCubit>().acceptChallenge(challengeId);
-                          // لو رجع نص (Error)، نظهره في الشاشة
+                        
                           if (error != null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(error), backgroundColor: Colors.redAccent),
@@ -120,14 +120,14 @@ import 'package:grad/widgets/battle/Battle_Screen.dart';
                           builder: (context) => BattleScreen(
                             challengeId: challenge['id'], 
                            problemId: challenge['problemId'] ?? challenge['id'] ?? challengeId,
-                            isPractice: false, // 👈 إحنا هنا في تحدي
+                            isPractice: false, 
                           ),
                           ),
                         ).then((_) {
                           
                                             Future.delayed(const Duration(milliseconds: 500), () {
                           if (context.mounted) {
-                            // بعد ما الشاشة تستقر، نحدث الداتا
+                            
                             context.read<ChallengeArenaCubit>().init(); 
                           }
                         });

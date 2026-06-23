@@ -20,7 +20,7 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
 
   @override
   Widget build(BuildContext context) {
-    // استخدمنا Padding لمعالجة الكيبورد لما يظهر
+    
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -31,7 +31,7 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // مؤشر السحب (Handle Bar)
+            
             Center(
               child: Container(
                 width: 40, height: 4, 
@@ -40,11 +40,11 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
             ),
             const SizedBox(height: 20),
             
-            // العنوان
-            const Text("⚔️ Create 1v1 Battle", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+            
+            const Text(" Create 1v1 Battle", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
             const SizedBox(height: 20),
             
-            // صندوق القواعد (Rules Box)
+          
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
@@ -66,7 +66,7 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
             ),
             const SizedBox(height: 20),
             
-            // إدخال اسم الخصم
+           
             _buildLabel("Opponent Username"),
             const SizedBox(height: 8),
             TextField(
@@ -83,25 +83,25 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
             ),
             const SizedBox(height: 16),
             
-            // اختيار الـ Topic
+           
             _buildLabel("Topic"),
             const SizedBox(height: 8),
             _buildDropdown(selectedTopic, ['Random', 'Arrays', 'Strings', 'Graphs'], (val) => setState(() => selectedTopic = val!)),
             const SizedBox(height: 16),
             
-            // اختيار الـ Difficulty
+           
             _buildLabel("Difficulty"),
             const SizedBox(height: 8),
             _buildDropdown(selectedDifficulty, ['Random', 'Easy', 'Medium', 'Hard'], (val) => setState(() => selectedDifficulty = val!)),
             const SizedBox(height: 16),
             
-            // اختيار الـ Time Limit
+           
             _buildLabel("Time Limit"),
             const SizedBox(height: 8),
             _buildDropdown(selectedTime, ['15 minutes', '30 minutes', '45 minutes', '1 hour'], (val) => setState(() => selectedTime = val!)),
             const SizedBox(height: 25),
             
-            // زر الإرسال
+           
            SizedBox(
   width: double.infinity,
   child: ElevatedButton.icon(
@@ -117,7 +117,6 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
 
       int minutes = int.parse(selectedTime.split(' ')[0]);
 
-      // استدعاء الدالة اللي بترجع String لو في خطأ، أو null لو نجحت
       String? errorMessage = await context.read<ChallengeArenaCubit>().createBattle(
         opponentUsername: opponentController.text.trim(),
         topicTag: selectedTopic,
@@ -128,13 +127,13 @@ class _CreateBattleSheetState extends State<CreateBattleSheet> {
       setState(() => isLoading = false);
 
       if (errorMessage == null) {
-        // لو مفيش خطأ (الرد null)، يبقى نجح
+        
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Battle invite sent successfully!"), backgroundColor: Colors.green),
         );
       } else {
-        // لو في خطأ، اعرض الرسالة اللي جاية من السيرفر
+       
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
         );

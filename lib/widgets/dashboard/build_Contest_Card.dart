@@ -18,7 +18,7 @@ class _LiveCountdownWidgetState extends State<LiveCountdownWidget> {
   void initState() {
     super.initState();
     _calculateTimeLeft();
-    // التايمر بيشتغل هنا كل ثانية
+    
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _calculateTimeLeft();
     });
@@ -65,7 +65,7 @@ class _LiveCountdownWidgetState extends State<LiveCountdownWidget> {
         }
       }
     } catch (e) {
-      // لو في خطأ في التاريخ
+      // لو في خطأ 
     }
   }
 
@@ -96,7 +96,7 @@ class _LiveCountdownWidgetState extends State<LiveCountdownWidget> {
   }
 }
 
-// 2. الكارت الأساسي
+
 Widget buildContestCard(String title, String time, String duration, String platform,{String? url}) {
   
   Color getPlatformColor(String p) {
@@ -129,7 +129,7 @@ Widget buildContestCard(String title, String time, String duration, String platf
           ],
         ),
         const SizedBox(height: 12),
-        // عرضنا مدة المسابقة هنا فوق جنب التاريخ
+       
         Row(
           children: [
             const Icon(Icons.calendar_today, color: Colors.grey, size: 14),
@@ -146,8 +146,7 @@ Widget buildContestCard(String title, String time, String duration, String platf
           width: double.infinity,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(color: const Color(0xFF0B1221), borderRadius: BorderRadius.circular(12)),
-          
-          // 👇 هنا السحر كله! استدعينا العداد الحي
+       
           child: LiveCountdownWidget(startTimeStr: time),
           
         ),
@@ -163,7 +162,7 @@ Widget buildContestCard(String title, String time, String duration, String platf
                       await launchUrl(uri, mode: LaunchMode.externalApplication);
                     }
                   } else {
-                     // لو مفيش رابط، ممكن تطلع رسالة SnackBar مثلاً أو تخليه يفتح رابط افتراضي
+                     
                   }
                 },
                 style: ElevatedButton.styleFrom(

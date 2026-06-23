@@ -71,7 +71,7 @@ class ProblemRow extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Colors.white70),
             ),
           ),
-          // زر الأكشن
+          
           Expanded(
             flex: 2,
             child: Align(

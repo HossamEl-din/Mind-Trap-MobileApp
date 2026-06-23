@@ -19,7 +19,7 @@ class StatsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // بنحول النسبة المئوية لرقم صحيح عشان نعرضها في النص تحت (مثال: 50%)
+  
     int percentInt = (progressPercentage * 100).toInt();
 
     return Container(
@@ -44,7 +44,7 @@ class StatsCard extends StatelessWidget {
             backgroundColor: const Color(0xFF0B1221),
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.purpleAccent),
             minHeight: 8,
-            borderRadius: BorderRadius.circular(4), // عشان الحواف تبقى مدورة زي الصورة
+            borderRadius: BorderRadius.circular(4), 
           ),
           const SizedBox(height: 12),
           Text(
@@ -56,7 +56,7 @@ class StatsCard extends StatelessWidget {
     );
   }
 
-  // دالة صغيرة بترسم الأرقام والكلمات اللي تحتها
+ 
   Widget _statItem(String value, String label, Color color) {
     return Column(
       children: [

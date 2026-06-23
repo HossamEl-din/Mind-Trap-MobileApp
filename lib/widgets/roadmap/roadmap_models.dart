@@ -1,4 +1,3 @@
-// 1. موديل المسار الرئيسي (اللي بيعرض المستويات والتوبيكس)
 class LearningLevel {
   final String levelName;
   final List<TopicSummary> topics;
@@ -41,9 +40,7 @@ class TopicSummary {
   }
 }
 
-// ==========================================
 
-// 2. موديل تفاصيل التوبيك (الفيديوهات والمسائل)
 class TopicDetails {
   final int id;
   final String name;
@@ -77,7 +74,7 @@ class TopicDetails {
 class ResourceModel {
   final int id;
   final String title;
-  final String type; // Video, Article, Book
+  final String type; 
   final String language;
   final String url;
 
@@ -105,8 +102,8 @@ class ProblemModel {
   final String title;
   final String difficulty;
   final String source;
-  final String? originalUrl; // ممكن يرجع null زي ما واضح في الصور
-  final String status; // "Solved" أو "Unsolved"
+  final String? originalUrl; 
+  final String status; 
   final String successRate;
 
   ProblemModel({

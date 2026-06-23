@@ -27,13 +27,13 @@ Widget subTopicCard(BuildContext context,int topicId, String title, String subti
                 ),
               ),
               IconButton(
-  onPressed: () async { // 👈 خلينا دي async
-    // 👈 حطينا await هنا عشان نستنى اليوزر لحد ما يخلص ويقفل شاشة التفاصيل
+  onPressed: () async { 
+   
     await Navigator.push(context, MaterialPageRoute(
       builder: (context) => ConditionsScreen(topicId: topicId, topicName: title)
     ));
     
-    // 👈 أول ما اليوزر يرجع لشاشة الرود ماب، الكود ده هيشتغل ويحدث الشاشة والنسبة!
+   
     if (context.mounted) {
       context.read<RoadmapCubit>().loadRoadmap();
     }

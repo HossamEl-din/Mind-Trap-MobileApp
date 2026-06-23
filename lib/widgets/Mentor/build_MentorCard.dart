@@ -4,10 +4,10 @@ import 'package:grad/cubits/Mentor_Cubit/mentor_Cubit.dart';
 import 'package:grad/widgets/Mentor/mintor_model.dart';
 
 Widget buildMentorCard(BuildContext context, Mentor mentor) {
-  // 👈 1. قرينا الحالة مباشرة من الموديل الذكي بتاعنا
+
   bool isFull = mentor.availability.toLowerCase() == 'full';
   
-  // حساب الـ Capacity للـ Progress Bar
+  
   double progress = mentor.maxCapacity > 0 ? (mentor.currentCapacity / mentor.maxCapacity) : 0.0;
   if (progress > 1.0) progress = 1.0; 
 
@@ -22,9 +22,7 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // ==========================================
-        // 1. الـ Header (الصورة والاسم والتقييم)
-        // ==========================================
+       
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -52,7 +50,7 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
                     maxLines: 1, overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 5),
-                  // النجوم والتقييم
+                 
                   Row(
                     children: [
                       ...List.generate(5, (index) {
@@ -64,13 +62,13 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
                       }),
                       const SizedBox(width: 5),
                        Text(
-                        '${mentor.rating.toStringAsFixed(1)} (${mentor.reviews} reviews)', // 👈 ضفنا toStringAsFixed(1)
+                        '${mentor.rating.toStringAsFixed(1)} (${mentor.reviews} reviews)', 
                           style: const TextStyle(color: Colors.grey, fontSize: 12)
                           ),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // بادج التوثيق والمستوى
+                  
                   Row(
                     children: [
                       Container(
@@ -99,9 +97,7 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
         ),
         const SizedBox(height: 15),
 
-        // ==========================================
-        // 2. الـ Bio والمسمى الوظيفي
-        // ==========================================
+        
         if (mentor.title.isNotEmpty)
           Text(mentor.title, style: const TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.bold)),
         if (mentor.title.isNotEmpty && mentor.description.isNotEmpty)
@@ -116,19 +112,17 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
 
  
             Wrap(
-              spacing: 15, // المسافة الأفقية
-              runSpacing: 10, // المسافة الرأسية لو نزل سطر جديد
+              spacing: 15, 
+              runSpacing: 10, 
               children: [
                 _buildStatItem('${mentor.students} Students'),
                 _buildStatItem('${mentor.experience} yrs Experience'),
-                _buildStatItem('${mentor.rating.toStringAsFixed(1)} ⭐ Rating'), // 👈 قربنا الرقم هنا كمان
+                _buildStatItem('${mentor.rating.toStringAsFixed(1)} ⭐ Rating'), 
               ],
             ),
         const SizedBox(height: 15),
 
-        // ==========================================
-        // 4. التخصصات (Tags)
-        // ==========================================
+      
         if (mentor.topics.isNotEmpty)
           Wrap(
             spacing: 8, runSpacing: 8,
@@ -219,7 +213,7 @@ Widget buildMentorCard(BuildContext context, Mentor mentor) {
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text(result == "success" ? "Request sent successfully! 🎉" : result),
+                        content: Text(result == "success" ? "Request sent successfully! " : result),
                         backgroundColor: result == "success" ? Colors.green : Colors.redAccent,
                       )
                     );

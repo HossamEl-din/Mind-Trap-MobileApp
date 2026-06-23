@@ -82,26 +82,23 @@ void showContactSheet(BuildContext context, Mentor mentor) {
               ),
               const SizedBox(height: 20),
 
-              // ==========================================
-              // 👈 الزرار الجديد (Send Request) مربوط بالـ API
-              // ==========================================
-              StatefulBuilder( // استخدمنا StatefulBuilder عشان نتحكم في حالة التحميل جوه الشيت بس
+             
+              StatefulBuilder( 
                 builder: (BuildContext context, StateSetter setSheetState) {
                   bool isSubmitting = false;
 
                   return InkWell(
                     onTap: isSubmitting ? null : () async {
                       setSheetState(() => isSubmitting = true);
-                      
-                      // نكلم السيرفر عن طريق الكيوبت
+                     
                       String result = await mentorCubit.requestMentor(mentor.id);
                       
                       setSheetState(() => isSubmitting = false);
 
                       if (sheetContext.mounted) {
-                        Navigator.pop(sheetContext); // نقفل الشيت بعد ما يخلص
+                        Navigator.pop(sheetContext); 
                         
-                        // نطلع رسالة النتيجة لليوزر (سواء نجاح أو إيرور من الباك إند)
+                       
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(result == "success" ? "Request sent successfully! 🎉" : result),
@@ -137,7 +134,7 @@ void showContactSheet(BuildContext context, Mentor mentor) {
   );
 }
 
-// دالة مساعدة لرسم صفوف التواصل (زي ما هي عندك)
+
 Widget _buildContactRow(BuildContext context, IconData icon, String label, String value) {
   return Container(
     padding: const EdgeInsets.all(12),

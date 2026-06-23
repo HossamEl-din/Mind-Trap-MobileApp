@@ -16,12 +16,12 @@ class HomeScreen extends StatelessWidget {
       body: BlocBuilder<DashboardCubit, DashboardState>(
         builder: (context, state) {
           
-          // 1️⃣ لو بيحمل، نعرض اللودينج
+         
           if (state.isLoading && state.firstName == '...') {
             return const Center(child: CircularProgressIndicator(color: Colors.cyanAccent));
           }
 
-          // 2️⃣ تظبيط رسالة الترحيب
+         
           String displayTitle = state.firstName.isNotEmpty && state.firstName != '...'
               ? "Welcome back, ${state.firstName}!"
               : "Welcome back!";
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.grey, fontSize: 14)),
                 const SizedBox(height: 24),
                 
-                // 3️⃣ ربط كروت الإحصائيات بالداتا الحقيقية
+                
                 GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -59,9 +59,8 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 12),
                 
-                // ⚠️ ملحوظة: لو دالة buildStreakCard بتقبل تمرير الرقم، باصيه ليها كده:
-                // buildStreakCard(streakDays: state.dayStreak),
-                buildStreakCard(streakDays: state.dayStreak), // حالياً سايبها زي ما هي لحد ما تظبطها تستقبل الرقم
+                
+                buildStreakCard(streakDays: state.dayStreak), 
                 
                 const SizedBox(height: 24),
                 Row(
@@ -74,8 +73,7 @@ class HomeScreen extends StatelessWidget {
                         child: const Text("View Calendar →", style: TextStyle(color: Colors.cyanAccent))),
                   ],
                 ),
-                
-                // 4️⃣ رسم المسابقات الجاية بشكل ديناميك
+               
                 if (state.upcomingContests.isEmpty)
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
@@ -83,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   
                 ...state.upcomingContests.map((contest) {
-                  // استخراج المنصة عشان نجيب أول حرفين منها للوجو (مثال: Codeforces -> CF)
+                 
                   String platform = contest['platform'] ?? 'UN';
                   String initials = platform.length >= 2 
                       ? platform.substring(0, 2).toUpperCase() 
@@ -96,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                     initials,
                     url: contest['url'],
                   );
-                }).toList(), // حولنا الـ map لـ List عشان الـ Spread Operator (...) يشتغل
+                }).toList(),
               ],
             ),
           );

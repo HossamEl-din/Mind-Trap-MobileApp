@@ -17,7 +17,7 @@ class ContestCalendarScreen extends StatefulWidget {
 }
 
 class _ContestCalendarScreenState extends State<ContestCalendarScreen> {
-  int _navIndex = 3; // Contests tab active
+  int _navIndex = 3; 
 
   @override
   void initState() {

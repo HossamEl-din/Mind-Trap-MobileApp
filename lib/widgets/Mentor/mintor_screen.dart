@@ -49,9 +49,9 @@ class MentorshipScreen extends StatelessWidget {
               icon: Icon(state.isSearching ? Icons.close : Icons.search, color: Colors.grey),
               onPressed: () {
                 if (state.isSearching) {
-                  searchController.clear(); // نفضي التيكست بوكس
+                  searchController.clear(); 
                 }
-                // ننادي الكيوبت عشان يقلب الحالة
+               
                 context.read<MentorshipCubit>().toggleSearch();
               },
             )
@@ -60,16 +60,14 @@ class MentorshipScreen extends StatelessWidget {
           body: BlocBuilder<MentorshipCubit, MentorshipState>(
             builder: (context, state) {
               
-              // 👈 1. إظهار دائرة تحميل لو الداتا لسه بتيجي من السيرفر
+              
               if (state.isLoading) {
                 return const Center(child: CircularProgressIndicator(color: Color(0xFF818CF8)));
               }
         
               return Column(
                 children: [
-                  // ==========================================
-                  // 2. Toggle Button (زرار التحويل بين التابس)
-                  // ==========================================
+        
                   Container(
                     margin: const EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
                     decoration: BoxDecoration(
@@ -112,13 +110,11 @@ class MentorshipScreen extends StatelessWidget {
                     ),
                   ),
         
-                  // ==========================================
-                  // 3. المحتوى بناءً على التاب المختار (Expanded عشان ياخد باقي الشاشة)
-                  // ==========================================
+                 
                   Expanded(
                     child: state.activeTab == 0
-                        ? buildFindMentorTab(context, state) // التاب الأساسي بتاعك
-                        : _buildMentorDashboardTab(context, state), // تاب لوحة التحكم
+                        ? buildFindMentorTab(context, state) 
+                        : _buildMentorDashboardTab(context, state), 
                   ),
                 ],
               );
@@ -131,26 +127,21 @@ class MentorshipScreen extends StatelessWidget {
   }
   
 
-  // ==========================================
-  // Helper 2: التاب التاني (Mentor Dashboard)
-  // ==========================================
  Widget _buildMentorDashboardTab(BuildContext context, MentorshipState state) {
-    // 👈 1. غلفنا الـ ListView بـ RefreshIndicator
+   
     return RefreshIndicator(
       color: const Color(0xFF818CF8),
       backgroundColor: const Color(0xFF1E293B),
       onRefresh: () async {
-        // 👈 2. هننادي على الدالة اللي بتجيب الداتا كلها من الأول
+   
         await context.read<MentorshipCubit>().fetchMentorDashboardData();
       },
       child: ListView(
-        // 👈 3. السطر ده مهم جداً عشان تقدر تسحب الشاشة حتى لو فاضية
+      
         physics: const AlwaysScrollableScrollPhysics(), 
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         children: [
-          // ==========================================
-          // قسم الطلبات المعلقة (Pending Requests)
-          // ==========================================
+       
           const Text('🔔 Pending Requests', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 15),
           
@@ -171,9 +162,7 @@ class MentorshipScreen extends StatelessWidget {
 
           const SizedBox(height: 30),
 
-          // ==========================================
-          // قسم طلابي (My Students)
-          // ==========================================
+      
           const Text('👥 My Students', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 15),
           
@@ -195,7 +184,7 @@ class MentorshipScreen extends StatelessWidget {
     );
   }
 
-  // --- دوال مساعدة لـ Mentor Dashboard ---
+  
   
 
   Widget _buildStudentCard(String name, String email) {

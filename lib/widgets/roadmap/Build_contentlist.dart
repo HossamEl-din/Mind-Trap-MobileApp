@@ -10,7 +10,7 @@ class ContentList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1️⃣ هندور على المستوى اللي اليوزر اختاره
+
     final selectedLevel = levels.firstWhere(
       (level) => level.levelName == selectedFilter,
       orElse: () => LearningLevel(levelName: 'Unknown', topics: []),
@@ -25,7 +25,6 @@ class ContentList extends StatelessWidget {
       );
     }
 
-    // 2️⃣ حساب نسبة إنجاز المستوى بالكامل (اختياري عشان الهيدر)
     int totalProbs = 0;
     int solvedProbs = 0;
     for (var t in selectedLevel.topics) {
@@ -34,14 +33,14 @@ class ContentList extends StatelessWidget {
     }
     String levelPercent = totalProbs == 0 ? "0%" : "${((solvedProbs / totalProbs) * 100).toInt()}%";
 
-    // 3️⃣ رسم التوبيكس
+   
     return Column(
       children: [
-        // الهيدر الرئيسي واخد اسم المستوى
+        
         topicHeader(selectedLevel.levelName, levelPercent, "Master fundamental concepts and problem-solving"),
         const SizedBox(height: 16),
         
-        // رسم الكروت بتاعة التوبيكس (زي Data Types & Conditions)
+        
         ...selectedLevel.topics.map((topic) {
          return subTopicCard(
               context, 

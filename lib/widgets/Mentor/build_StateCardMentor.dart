@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 Widget build_StatCardMentor(IconData icon, String value, String label, {bool isFree = false, bool isFull = false, Color? valueColor}) {
   
-  // 👈 بنحدد اللون الأساسي للكارت بناءً على الحالة (لو Full يبقى أحمر، لو Free يبقى أخضر، غير كده اللون البنفسجي العادي)
   Color activeColor = isFull ? Colors.redAccent : (isFree ? Colors.greenAccent : const Color(0xFF818CF8));
 
   return Container(
@@ -10,7 +9,7 @@ Widget build_StatCardMentor(IconData icon, String value, String label, {bool isF
       color: const Color(0xFF1E293B),
       borderRadius: BorderRadius.circular(15),
       border: Border(
-        top: BorderSide(color: activeColor, width: 2) // 👈 البوردر هياخد اللون أوتوماتيك
+        top: BorderSide(color: activeColor, width: 2) 
       ),
     ),
     child: Column(
@@ -19,7 +18,7 @@ Widget build_StatCardMentor(IconData icon, String value, String label, {bool isF
         Icon(
           icon, 
           size: 28, 
-          color: activeColor // 👈 الأيقونة هتاخد نفس اللون
+          color: activeColor 
         ),
         const SizedBox(height: 8),
         Text(

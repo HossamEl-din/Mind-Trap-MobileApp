@@ -4,13 +4,13 @@ import 'package:grad/cubits/RoadMap_Cubit/roadmap_Cubit.dart';
 import 'package:grad/widgets/roadmap/roadmap_models.dart';
 class FilterRow extends StatelessWidget {
   final String selectedFilter;
-  final List<LearningLevel> levels; // 👈 ضفنا الـ levels
+  final List<LearningLevel> levels; 
 
   const FilterRow({super.key, required this.selectedFilter, required this.levels});
 
   @override
   Widget build(BuildContext context) {
-    // 👈 سحبنا أسامي المستويات من الداتا الحقيقية
+  
     final filters = levels.map((l) => l.levelName).toList();
     
     return SingleChildScrollView(
