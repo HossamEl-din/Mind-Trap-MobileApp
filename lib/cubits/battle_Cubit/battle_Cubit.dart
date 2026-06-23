@@ -11,7 +11,6 @@ class BattleCubit extends Cubit<BattleState> {
   int currentHintLevel = 1;
   BattleCubit({required this.challengeId, required this.problemId, required this.isPractice}) : super(BattleInitial());
 
-  // 1. جلب تفاصيل المسألة أول ما الشاشة تفتح
   Future<void> fetchProblemDetails() async {
     emit(BattleLoading());
     try {
@@ -55,7 +54,7 @@ class BattleCubit extends Cubit<BattleState> {
     }
   }
 
-  // 2. دالة تشغيل الكود (Run Code)
+
   Future<void> runCode(String code, int langId) async {
     emit(CodeRunning());
     try {
@@ -68,7 +67,7 @@ class BattleCubit extends Cubit<BattleState> {
         "languageId": langId 
       };
 
-      print("🚀 جاري تجربة الكود...");
+      print(" جاري تجربة الكود...");
 
       final response = await _dio.post(
         '/api/Submissions/run',
@@ -77,7 +76,7 @@ class BattleCubit extends Cubit<BattleState> {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("✅ نتيجة الـ Run: ${response.data}");
+        print(" نتيجة الـ Run: ${response.data}");
         
         final resultsList = response.data['results'] as List?;
         final resultData = (resultsList != null && resultsList.isNotEmpty) ? resultsList[0] : {};
@@ -97,7 +96,7 @@ class BattleCubit extends Cubit<BattleState> {
         }
       }
     } catch (e) {
-      print("🚨 خطأ في الـ Run: $e");
+      print(" خطأ في الـ Run: $e");
       if (!isClosed) emit(RunCodeError("فشل في تشغيل الكود. تأكد من السيرفر."));
     }
   }
@@ -113,7 +112,7 @@ class BattleCubit extends Cubit<BattleState> {
           ? {"problemId": problemId, "sourceCode": code, "languageId": langId}
           : {"sourceCode": code, "languageId": langId};
 
-      print("🚀 جاري إرسال الحل للسيرفر...");
+      print(" جاري إرسال الحل للسيرفر...");
       final response = await _dio.post(
         submitUrl,
         data: payload,
@@ -123,9 +122,9 @@ class BattleCubit extends Cubit<BattleState> {
      if (response.statusCode == 200 || response.statusCode == 201) {
         bool isPassed = false;
         final responseData = response.data;
-        String serverVerdict = 'Wrong Answer'; // عشان نمسك رد السيرفر الحقيقي زي الويب
+        String serverVerdict = 'Wrong Answer'; 
 
-        // منطق التأكد من النجاح (زي الويب بالمللي)
+        
         if (responseData == true || responseData.toString().toLowerCase() == 'true') {
           isPassed = true;
           serverVerdict = 'Accepted';
@@ -135,7 +134,7 @@ class BattleCubit extends Cubit<BattleState> {
           
           serverVerdict = verdict.isNotEmpty ? verdict : (status.isNotEmpty ? status : 'Wrong Answer');
 
-          // 👇 هنا رجعنا الـ verdict.toLowerCase() == 'accepted' اللي كانت ناقصة!
+         
           if (status.toLowerCase() == 'accepted' || 
               verdict.toLowerCase() == 'accepted' || 
               status.toLowerCase() == 'success' || 
@@ -146,9 +145,9 @@ class BattleCubit extends Cubit<BattleState> {
           }
         }
 
-        // تجهيز رسالة النتيجة الأساسية
+       
         String originalMessage = isPassed 
-            ? (isPractice ? "Solution Accepted! 🎉" : "Challenge Completed! 🏆")
+            ? (isPractice ? "Solution Accepted! " : "Challenge Completed! ")
             : "Verdict: $serverVerdict";
 
         if (isPassed) {
@@ -160,12 +159,10 @@ class BattleCubit extends Cubit<BattleState> {
           }
         }
 
-        // ==========================================
-        // 👈👈 استدعاء الـ AI Analyzer في كل الحالات (نجاح أو فشل)
-        // ==========================================
+       
         if (problemStatement != null && problemStatement.isNotEmpty) {
           try {
-            print("🔍 جاري تحليل الكود بواسطة الذكاء الاصطناعي...");
+            print("جاري تحليل الكود بواسطة الذكاء الاصطناعي...");
             final analysisResponse = await _dio.post(
               'https://pulp-licking-visor.ngrok-free.dev/api/v1/analyze',
               data: {
@@ -192,11 +189,11 @@ class BattleCubit extends Cubit<BattleState> {
               }
             }
           } catch (aiError) {
-            print("🚨 فشل تحليل الذكاء الاصطناعي (سنعرض النتيجة العادية): $aiError");
+            print(" فشل تحليل الذكاء الاصطناعي (اعرض النتيجة العادية): $aiError");
           }
         }
 
-        // لو الـ AI وقع، هنعرض النتيجة القديمة بتاعتنا
+       
         if (!isClosed) {
           if (isPassed) emit(SubmitSuccess(originalMessage));
           else emit(SubmitError(originalMessage));
@@ -261,7 +258,7 @@ class BattleCubit extends Cubit<BattleState> {
       emit(AiHelpError("Error connecting to AI. Check your connection."));
     }
   }
-  // 👈 دالة شرح المسألة وتفنيطها
+  
   Future<void> explainProblem(String problemDescription) async {
     emit(ProblemExplainLoading());
     try {
@@ -269,7 +266,7 @@ class BattleCubit extends Cubit<BattleState> {
         'https://pulp-licking-visor.ngrok-free.dev/api/v1/explain', 
         data: {
           "problem_description": problemDescription,
-          // لاحظ هنا مفيش user_code زي ما الـ Swagger طالب
+       
         },
       );
 

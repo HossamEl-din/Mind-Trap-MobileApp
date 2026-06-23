@@ -10,7 +10,7 @@ class MentorshipCubit extends Cubit<MentorshipState> {
 
   MentorshipCubit() : super(MentorshipState());
 
-  // 1. جلب كل الداتا الأساسية للشاشة (Mentors + Stats)
+
   Future<void> fetchInitialData() async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
     try {
@@ -19,9 +19,9 @@ class MentorshipCubit extends Cubit<MentorshipState> {
       
       final options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      // جلب الإحصائيات
+     
       final statsResponse = await _dio.get('/api/Mentorship/stats', options: options);
-      // جلب قائمة كل المنتورز
+     
       final mentorsResponse = await _dio.get('/api/Mentorship/mentors', options: options);
       
       
@@ -49,7 +49,7 @@ class MentorshipCubit extends Cubit<MentorshipState> {
     emit(state.copyWith(selectedLevel: level));
   }
 
-  // تغيير فلتر الإتاحة (All, Available, Full)
+  
   void changeAvailabilityFilter(String availability) {
     emit(state.copyWith(selectedAvailability: availability));
   }
@@ -72,7 +72,7 @@ Future<bool> submitMentorApplication({
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
 
-      // 👇 مطابق لكود الـ Angular بالمللي! (شيلنا الـ dto ورجعنا المسميات زي الويب)
+     
       final payload = {
         "fullName": fullName,
         "jobTitle": jobTitle,
@@ -82,8 +82,8 @@ Future<bool> submitMentorApplication({
         "linkedinProfile": linkedin,
         "level": level,
         "maxStudents": maxStudents,
-        "experienceYears": experienceYears, // الويب بيبعتها بـ 0 لو مش موجودة
-        "expertise": topics,  // الويب بيبعتها String عادي
+        "experienceYears": experienceYears, 
+        "expertise": topics,  
         "bio": bio
       };
 
@@ -95,10 +95,10 @@ Future<bool> submitMentorApplication({
 
       return response.statusCode == 200 || response.statusCode == 201;
     } on DioException catch (e) {
-      print("🚨 السيرفر رفض الطلب (السبب): ${e.response?.data}");
+      print(" السيرفر رفض الطلب (السبب): ${e.response?.data}");
       return false;
     } catch (e) {
-      print("🚨 خطأ عام: $e");
+      print(" خطأ عام: $e");
       return false;
     }
   }
@@ -118,11 +118,10 @@ Future<bool> submitMentorApplication({
       }
       return "failed";
     } on DioException catch (e) {
-      // 👈 لو الباك إند رجع إيرور 400، بنسحب الرسالة بتاعته بالظبط
+     
       if (e.response?.statusCode == 400) {
         if (e.response?.data != null && e.response?.data is Map) {
-          // السطر ده هيجيب رسالة السيرفر زي:
-          // "You cannot request yourself" أو "You already have an active request"
+      
           return e.response?.data['message'] ?? "Invalid request.";
         }
         return "Bad Request";
@@ -139,15 +138,15 @@ Future<bool> submitMentorApplication({
     }
   }
   Future<void> fetchMentorDashboardData() async {
-    emit(state.copyWith(isLoading: true)); // إظهار التحميل
+    emit(state.copyWith(isLoading: true)); 
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
       final options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      // جلب الطلبات المعلقة
+    
       final pendingRes = await _dio.get('/api/Mentorship/requests/pending', options: options);
-      // جلب قائمة الطلاب
+      
       final studentsRes = await _dio.get('/api/Mentorship/my-students', options: options);
 
       emit(state.copyWith(
@@ -156,7 +155,7 @@ Future<bool> submitMentorApplication({
         myStudents: studentsRes.data is List ? studentsRes.data : [],
       ));
     } catch (e) {
-      print("🚨 Error fetching dashboard data: $e");
+      print(" Error fetching dashboard data: $e");
       emit(state.copyWith(isLoading: false, errorMessage: "Failed to load dashboard"));
     }
   }
@@ -171,15 +170,13 @@ Future<bool> submitMentorApplication({
       );
 
       if (response.statusCode == 200) {
-        // 👈 1. التحديث اللحظي: بنعمل لستة جديدة ونشيل منها الطالب فوراً
-        // (بنقارن بـ id أو connectionId حسب ما الباك إند بيبعتهم في لستة الطلاب)
+        
         final updatedStudents = List<dynamic>.from(state.myStudents)
           ..removeWhere((student) => student['connectionId'] == connectionId || student['id'] == connectionId);
-        
-        // 👈 2. نحدث الشاشة في نفس الجزء من الثانية
+    
         emit(state.copyWith(myStudents: updatedStudents));
 
-        // 👈 3. نطلب الداتا في الخلفية عشان نتأكد إن كله تمام
+    
         fetchMentorDashboardData(); 
         return true;
       }
@@ -190,7 +187,7 @@ Future<bool> submitMentorApplication({
     }
   }
 
-  // 2. قبول طلب من طالب (Accept Request) - للمنتور
+  
  Future<bool> acceptRequest(int connectionId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -213,7 +210,7 @@ Future<bool> submitMentorApplication({
       }
       return false;
     } catch (e) {
-      print("🚨 Error accepting request: $e");
+      print(" Error accepting request: $e");
       return false;
     }
   }
@@ -230,25 +227,24 @@ Future<bool> submitMentorApplication({
       );
 
       if (response.statusCode == 200) {
-        // 👈 1. التحديث اللحظي: بنعمل لستة جديدة ونشيل منها الكارت اللي اترفض
+      
         final updatedPending = List<dynamic>.from(state.pendingRequests)
           ..removeWhere((req) => req['connectionId'] == connectionId);
         
-        // 👈 2. بنبعت اللستة الجديدة للـ UI عشان يختفي فوراً
+     
         emit(state.copyWith(pendingRequests: updatedPending));
 
-        // 👈 3. جلب الداتا في الخلفية للتأكيد
         fetchInitialData(); 
         return true;
       }
       return false;
     } catch (e) {
-      print("🚨 Error rejecting request: $e");
+      print(" Error rejecting request: $e");
       return false;
     }
   }
 
-  // 4. تقييم المنتور بعد الانتهاء (Rate Mentor)
+ 
   Future<String> rateMentor(int mentorId, int score) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -278,7 +274,7 @@ Future<bool> submitMentorApplication({
     bool newSearchState = !state.isSearching;
     emit(state.copyWith(
       isSearching: newSearchState,
-      searchQuery: newSearchState ? state.searchQuery : '', // نفضي السيرش لو قفلناه
+      searchQuery: newSearchState ? state.searchQuery : '', 
     ));
   }
 }

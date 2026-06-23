@@ -11,7 +11,7 @@ class DashboardCubit extends Cubit<DashboardState> {
     fetchDashboardData();
   }
 
-  // دالة مساعدة لتحويل نص التاريخ اللي جاي من الـ API إلى DateTime لسهولة المقارنة
+ 
   DateTime? _parseDateTime(String startTimeStr) {
     try {
       final parts = startTimeStr.split(' ');
@@ -46,11 +46,11 @@ class DashboardCubit extends Cubit<DashboardState> {
       final List<String> localSolved = prefs.getStringList('local_solved') ?? [];
       final int localSolvedCount = localSolved.length;
 
-      // 👈 ضربنا الـ 3 ريكويستات، ولاحظ الريكويست التالت اتغير للمسار الجديد
+      
       final responses = await Future.wait([
         _dio.get('/api/Dashboard/stats', options: options),
         _dio.get('/api/Dashboard/learning-path', options: options),
-        _dio.get('/api/Contests', options: options), // مسار المسابقات اللي فيه الـ URL
+        _dio.get('/api/Contests', options: options), 
       ]);
 
       final statsData = responses[0].data;
@@ -59,13 +59,13 @@ class DashboardCubit extends Cubit<DashboardState> {
 
       final now = DateTime.now();
 
-      // 1. الفلترة: نحتفظ باللي لسه ميعاده مجاش
+      
       final List upcomingContests = dynamicContests.where((contest) {
         final targetDate = _parseDateTime(contest['startTime'] ?? '');
         return targetDate != null && targetDate.isAfter(now);
       }).toList();
 
-      // 2. الترتيب: من الأقرب للأبعد زمنياً
+  
       upcomingContests.sort((a, b) {
         final dateA = _parseDateTime(a['startTime'] ?? '');
         final dateB = _parseDateTime(b['startTime'] ?? '');

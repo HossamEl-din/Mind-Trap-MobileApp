@@ -11,7 +11,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     fetchNotifications();
   }
 
-  // 1. جلب الإشعارات
+
   Future<void> fetchNotifications() async {
     emit(state.copyWith(isLoading: true, error: ''));
     try {
@@ -43,10 +43,9 @@ class NotificationCubit extends Cubit<NotificationState> {
         options: Options(headers: {'Authorization': 'Bearer $token'}),
       );
 
-      // تحديث اللستة محلياً عشان الـ UI يتغير فوراً بدل ما نعمل Fetch من الأول
       final updatedNotifications = state.notifications.map((notif) {
         if (notif['id'] == id) {
-          // بنعمل نسخة جديدة من الماب ونغير isRead لـ true
+    
           return {...notif, 'isRead': true}; 
         }
         return notif;

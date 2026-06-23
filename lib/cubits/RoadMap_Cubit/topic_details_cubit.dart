@@ -14,7 +14,7 @@ class TopicDetailsError extends TopicDetailsState {
   TopicDetailsError(this.message);
 }
 
-// --- Cubit ---
+
 class TopicDetailsCubit extends Cubit<TopicDetailsState> {
   TopicDetailsCubit() : super(TopicDetailsInitial());
 

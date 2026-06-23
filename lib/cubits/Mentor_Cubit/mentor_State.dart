@@ -22,10 +22,10 @@ class MentorshipState {
     this.pendingRequests = const [], 
     this.myStudents = const [],      
     this.myConnectedMentors = const [],
-    this.selectedLevel = 'All Levels', // 👈 القيمة الافتراضية
-    this.selectedAvailability = 'All', // 👈 القيمة الافتراضية
-    this.searchQuery = '', // 👈 القيمة الافتراضية
-    this.isSearching = false, // 👈 القيمة الافتراضية
+    this.selectedLevel = 'All Levels', 
+    this.selectedAvailability = 'All', 
+    this.searchQuery = '', 
+    this.isSearching = false, 
   });
 
   MentorshipState copyWith({
@@ -44,7 +44,7 @@ class MentorshipState {
   }) {
     return MentorshipState(
       isLoading: isLoading ?? this.isLoading,
-      // لو الـ errorMessage اتبعت بـ null متعمد عشان نمسح الإيرور القديم، بنسمح بكده
+ 
       errorMessage: errorMessage, 
       mentors: mentors ?? this.mentors,
       stats: stats ?? this.stats,
@@ -54,7 +54,7 @@ class MentorshipState {
       myConnectedMentors: myConnectedMentors ?? this.myConnectedMentors,
       isSearching: isSearching ?? this.isSearching,
       
-      // 👈 اللوجيك اللي بيحمي من الـ Null
+     
       selectedLevel: selectedLevel ?? this.selectedLevel,
       selectedAvailability: selectedAvailability ?? this.selectedAvailability,
       searchQuery: searchQuery ?? this.searchQuery,

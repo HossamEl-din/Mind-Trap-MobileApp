@@ -31,10 +31,10 @@ class BattleError extends BattleState {
 }
 
 
-// حالة التحميل (لو مش موجودة ضيفها)
+
 class CodeRunning extends BattleState {}
 
-// حالة النجاح وبنشيل جواها النتيجة اللي راجعة
+
 class RunCodeSuccess extends BattleState {
   final bool passed;
   final String input;

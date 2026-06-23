@@ -9,7 +9,7 @@ import 'contest_state.dart';
 class ContestBloc extends Bloc<ContestEvent, ContestState> {
   Timer? _timer;
   
-  // 👈 تعريف الـ Dio للاتصال بالسيرفر
+  
   final Dio _dio = Dio(BaseOptions(baseUrl: 'https://hossammourad-001-site1.ltempurl.com'));
 
   ContestBloc() : super(ContestInitial()) {
@@ -20,9 +20,7 @@ class ContestBloc extends Bloc<ContestEvent, ContestState> {
     on<RemindForContest>(_onRemind);
   }
 
-  // ==========================================
-  // 👇 جلب الداتا الحقيقية من السيرفر
-  // ==========================================
+
   Future<void> _onLoadContests(LoadContests event, Emitter<ContestState> emit) async {
     emit(ContestLoading());
     try {
@@ -46,7 +44,7 @@ class ContestBloc extends Bloc<ContestEvent, ContestState> {
         now: DateTime.now(),
       ));
     } catch (e) {
-      print("🚨 Error fetching contests: $e");
+      print(" Error fetching contests: $e");
       emit(ContestError("Failed to load contests. Please try again."));
     }
   }
@@ -114,7 +112,7 @@ class ContestBloc extends Bloc<ContestEvent, ContestState> {
           emit(s.copyWith(remindedIds: newSet));
         }
       } catch (e) {
-        print("🚨 Error setting reminder: $e");
+        print(" Error setting reminder: $e");
         
       }
     }

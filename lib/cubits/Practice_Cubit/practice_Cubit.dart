@@ -15,7 +15,7 @@ class PracticeCubit extends Cubit<PracticeState> {
 
   List<Problem> _allProblems = [];
 
-  // دالة جلب المسائل ودمجها مع الهيستوري بتاعك
+ 
   Future<void> init() async {
     emit(PracticeLoading());
     try {
@@ -87,7 +87,7 @@ class PracticeCubit extends Cubit<PracticeState> {
     }
   }
 
-  // دوال الفلترة اللي كانت ممسوحة رجعناها أهي 👇
+
   void updateFilters({String? status, String? level, String? platform, String? query}) {
     if (state is PracticeSuccess) {
       final s = state as PracticeSuccess;

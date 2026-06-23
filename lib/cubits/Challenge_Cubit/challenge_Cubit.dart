@@ -19,7 +19,6 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
       final token = prefs.getString('token') ?? '';
       final options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      // طلب البيانات بالدور (واحد ورا التاني عشان السيرفر ميقفلش الاتصال)
       final activeResponse = await _dio.get('/api/Challenges/active', options: options);
       final pendingResponse = await _dio.get('/api/Challenges/pending', options: options);
       final completedResponse = await _dio.get('/api/Challenges/completed', options: options);
@@ -119,7 +118,7 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
     }
   }
  
-  // دالة قبول التحدي
+  
   Future<String?> acceptChallenge(int challengeId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -128,10 +127,10 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
 
       final response = await _dio.post('/api/Challenges/$challengeId/accept', options: options);
 
-      // أي كود من 200 لـ 299 بيعتبر نجاح في الـ APIs
+   
       if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
         refreshChallengesLists();
-        return null; // معناه إن مفيش مشاكل
+        return null; 
       }
       return "Unexpected response from server";
     } on DioException catch (e) {
@@ -162,7 +161,7 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
       print("Cancel Challenge Error: $e");
     }
   }
-  // دالة لتحديث قائمة الـ Pending فقط لتخفيف الضغط على السيرفر
+  
   Future<void> refreshPendingInvites() async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -187,14 +186,14 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
       print("Refresh Pending Error: $e");
     }
   }
-  // دالة لتحديث قوائم التحديات فقط بدون الليدربورد والإحصائيات
+  
   Future<void> refreshChallengesLists() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token') ?? '';
       final options = Options(headers: {'Authorization': 'Bearer $token'});
 
-      // بنجيب الـ 3 قوائم دول بس (عشان خفاف جداً على السيرفر)
+     
       final responses = await Future.wait([
         _dio.get('/api/Challenges/active', options: options),
         _dio.get('/api/Challenges/pending', options: options),
@@ -206,11 +205,11 @@ class ChallengeArenaCubit extends Cubit<ChallengeArenaState> {
         emit(ChallengeArenaSuccess(
           activeTab: currentState.activeTab,
           leaderboardFilter: currentState.leaderboardFilter,
-          activeChallenges: responses[0].data ?? [],      // 👈 تم التحديث
-          pendingInvites: responses[1].data ?? [],        // 👈 تم التحديث
-          completedChallenges: responses[2].data ?? [],   // 👈 تم التحديث
-          leaderboard: currentState.leaderboard,          // بنسيبه زي ما هو من الميموري
-          stats: currentState.stats,                      // بنسيبه زي ما هو من الميموري
+          activeChallenges: responses[0].data ?? [],      
+          pendingInvites: responses[1].data ?? [],       
+          completedChallenges: responses[2].data ?? [],   
+          leaderboard: currentState.leaderboard,          
+          stats: currentState.stats,                      
         ));
       }
     } catch (e) {

@@ -7,23 +7,18 @@ class ProfileState {
   final String bio;
   final Map<String, bool> settings;
   final String error;
-  
-  // 👈 الإحصائيات الجديدة
   final int problemsSolved;
   final int contestsParticipated;
   final String globalRank;
-
-  // الاسم بالكامل
   String get fullName => "$firstName $lastName".trim();
 
-  // 👈 دالة ذكية لاستخراج أول حرفين تلقائياً (مثال: Mansour Mohamed -> MM)
   String get initials {
     String f = firstName.trim();
     String l = lastName.trim();
     String firstLetter = f.isNotEmpty ? f[0].toUpperCase() : '';
     String lastLetter = l.isNotEmpty ? l[0].toUpperCase() : '';
     
-    if (firstLetter.isEmpty && lastLetter.isEmpty) return 'U'; // لو مفيش اسم
+    if (firstLetter.isEmpty && lastLetter.isEmpty) return 'U'; 
     return '$firstLetter$lastLetter';
   }
 
@@ -34,9 +29,9 @@ class ProfileState {
     this.username = '...',
     this.email = '...',
     this.bio = '...',
-    this.problemsSolved = 0, // القيمة المبدئية
+    this.problemsSolved = 0, 
     this.contestsParticipated = 0,
-    this.globalRank = '#--', // القيمة المبدئية للرانك
+    this.globalRank = '#--', 
     this.settings = const {
       'Dark Mode': true,
       'Auto-save Code': true,

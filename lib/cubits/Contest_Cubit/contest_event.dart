@@ -4,7 +4,7 @@ abstract class ContestEvent {}
 class LoadContests extends ContestEvent {}
 
 class FilterByPlatform extends ContestEvent {
-  final ContestPlatform? platform; // null = all platforms
+  final ContestPlatform? platform; 
   FilterByPlatform(this.platform);
 }
 
